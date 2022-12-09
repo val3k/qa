@@ -1,5 +1,6 @@
 # qa
-qa service
+tg: https://t.me/Va1entin
+qa service 
 
 Развертывание:
 1. Создаем minio(S3)
