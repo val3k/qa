@@ -25,3 +25,6 @@ qa service
 2. Указываем новую версию данных в .env (IND_PATH..., CENT_PATH)
 3. Обновляем сервис
 `docker stack deploy --compose-file docker-compose.yml qaservice`
+
+##Схема сервиса
+![alt text](https://github.com/val3k/qa/blob/main/qa.jpg)
