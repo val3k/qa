@@ -1,5 +1,6 @@
 # qa
 tg: https://t.me/Va1entin
+
 qa service 
 
 Развертывание:
