@@ -24,7 +24,7 @@ qa service
 `curl localhost:6000/build?version=2`
 2. Указываем новую версию данных в .env (IND_PATH..., CENT_PATH)
 3. Обновляем сервис
-`docker stack deploy --compose-file docker-compose.yml qaservice`
+`docker stack deploy -c <(docker-compose config) qa_service`
 
 ## Схема сервиса
 
