@@ -83,8 +83,8 @@ services:
         constraints:
           - "node.labels.TAG==ind2"
   ind3:
+    image: 65.108.154.79:5000/ind_qa
     build:
-      image: 65.108.154.79:5000/ind_qa
       context: .
       dockerfile: ind.dockerfile
     volumes:
