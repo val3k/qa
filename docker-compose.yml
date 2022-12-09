@@ -1,0 +1,144 @@
+version: '3.8'
+
+services:
+  ind0:
+    image: 65.108.154.79:5000/ind_qa
+    build:
+      context: .
+      dockerfile: ind.dockerfile
+    volumes:
+      - ${DATA_MOUNT_IND}:/app/data
+    tty:
+      true
+    ports:
+      - "7000:7000"
+    env_file:
+      - .env
+    environment:
+      - IND_PATH=${IND_PATH0}
+      - S3_KEY_ID=${S3_KEY_ID}
+      - S3_SECRET=${S3_SECRET}
+      - S3_URL=${S3_URL}
+      - S3_PREFIX=${S3_PREFIX}
+      - S3_BUCKET=${S3_BUCKET}
+    deploy:
+      replicas: 1
+      update_config:
+        order: start-first
+      placement:
+        constraints:
+          - "node.labels.TAG==ind0"
+  ind1:
+    image: 65.108.154.79:5000/ind_qa
+    build:
+      context: .
+      dockerfile: ind.dockerfile
+    volumes:
+      - ${DATA_MOUNT_IND}:/app/data
+    tty:
+      true
+    ports:
+      - "7001:7000"
+    env_file:
+      - .env
+    environment:
+      - IND_PATH=${IND_PATH1}
+      - S3_KEY_ID=${S3_KEY_ID}
+      - S3_SECRET=${S3_SECRET}
+      - S3_URL=${S3_URL}
+      - S3_PREFIX=${S3_PREFIX}
+      - S3_BUCKET=${S3_BUCKET}
+    deploy:
+      replicas: 1
+      update_config:
+        order: start-first
+      placement:
+        constraints:
+          - "node.labels.TAG==ind1"
+  ind2:
+    image: 65.108.154.79:5000/ind_qa
+    build:
+      context: .
+      dockerfile: ind.dockerfile
+    volumes:
+      - ${DATA_MOUNT_IND}:/app/data
+    tty:
+      true
+    ports:
+      - "7002:7000"
+    env_file:
+      - .env
+    environment:
+      - IND_PATH=${IND_PATH2}
+      - S3_KEY_ID=${S3_KEY_ID}
+      - S3_SECRET=${S3_SECRET}
+      - S3_URL=${S3_URL}
+      - S3_PREFIX=${S3_PREFIX}
+      - S3_BUCKET=${S3_BUCKET}
+    deploy:
+      replicas: 1
+      update_config:
+        order: start-first
+      placement:
+        constraints:
+          - "node.labels.TAG==ind2"
+  ind3:
+    build:
+      image: 65.108.154.79:5000/ind_qa
+      context: .
+      dockerfile: ind.dockerfile
+    volumes:
+      - ${DATA_MOUNT_IND}:/app/data
+    tty:
+      true
+    ports:
+      - "7003:7000"
+    env_file:
+      - .env
+    environment:
+      - IND_PATH=${IND_PATH3}
+      - S3_KEY_ID=${S3_KEY_ID}
+      - S3_SECRET=${S3_SECRET}
+      - S3_URL=${S3_URL}
+      - S3_PREFIX=${S3_PREFIX}
+      - S3_BUCKET=${S3_BUCKET}
+    deploy:
+      replicas: 1
+      update_config:
+        order: start-first
+      placement:
+        constraints:
+          - "node.labels.TAG==ind3"
+  gw:
+    image: 65.108.154.79:5000/gw_qa
+    build:
+      context: .
+      dockerfile: gw.dockerfile
+    volumes:
+     - ${DATA_MOUNT_GW}:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5008/hcheck"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 1m
+    deploy:
+      replicas: 1
+      update_config:
+        order: start-first
+      placement:
+        constraints:
+          - "node.labels.TAG==gw"
+    ports:
+      - "5008:5008"
+    env_file:
+      - .env
+    environment:
+      - CENT_PATH=${CENT_PATH}
+      - INDEX_URL=http://indNUM:7000/find
+      - S3_KEY_ID=${S3_KEY_ID}
+      - S3_SECRET=${S3_SECRET}
+      - S3_URL=${S3_URL}
+      - S3_PREFIX=${S3_PREFIX}
+      - S3_BUCKET=${S3_BUCKET}
+
