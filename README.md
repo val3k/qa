@@ -17,7 +17,7 @@ qa service
 8. Пушим в реджистри 
 `docker-compose push`
 9. Разворачиваем gateway и индексы
-`docker stack deploy --compose-file docker-compose.yml qaservice`
+`docker stack deploy -c <(docker-compose config) qa_service`
 
 ## Обновление:
 1. Создаем задание для cutter на "нарезку" индексов и эмбеддингов в s3 с указанием версии данных (version), например 2:
