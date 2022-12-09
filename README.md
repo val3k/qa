@@ -26,5 +26,6 @@ qa service
 3. Обновляем сервис
 `docker stack deploy --compose-file docker-compose.yml qaservice`
 
-##Схема сервиса
+## Схема сервиса
+
 ![alt text](https://github.com/val3k/qa/blob/main/qa.jpg)
